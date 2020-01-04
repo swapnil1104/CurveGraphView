@@ -1,0 +1,2 @@
+include ':app', ':graphview'
+rootProject.name='CurveGraphView'
