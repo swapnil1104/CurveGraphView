@@ -13,19 +13,10 @@ public class CurveGraphConfig {
     private WeakReference<Context> ctxWeakRef;
 
     @ColorInt
-    int maxYValue = 0;
-
-    @ColorInt
     int axisColor = 0;
 
     @ColorInt
-    int strokeColor = 0;
-
-    @ColorInt
     int backgroundColor = 0;
-
-    @ColorInt
-    int gradientStartColor = 0, gradientEndColor = 0;
 
     @ColorInt
     int xAxisScaleColor = 0;
@@ -42,46 +33,22 @@ public class CurveGraphConfig {
 
     String noDataMsg = null;
 
-    public CurveGraphConfig(Builder builder) {
-        if (xAxisScaleColor == 0)
-            xAxisScaleColor = ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.Black);
-        if (strokeColor == 0)
-            strokeColor = ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.strokeColor);
-        if (backgroundColor == 0)
-            backgroundColor = ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.backgroundColor);
-        if (gradientStartColor == 0)
-            gradientStartColor = ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.gradientStartColor);
-        if (gradientEndColor == 0)
-            gradientEndColor = ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.gradientEndColor);
-        if (guidelineColor == 0)
-            guidelineColor = ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.guidelineColor);
-        if (yAxisScaleColor == 0)
-            yAxisScaleColor = ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.scaleTextColor);
-        if (axisColor == 0)
-            axisColor = ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.axisColor);
-
-
-        if (intervalCount == 0) intervalCount = 5;
-        if (guidelineCount == 0) guidelineCount = 4;
-        if (noDataMsg == null) noDataMsg = "No Data";
-
+    private CurveGraphConfig(Builder builder) {
+        xAxisScaleColor = (builder.xAxisScaleColor == 0) ? ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.Black) : builder.xAxisScaleColor;
+        yAxisScaleColor = (builder.yAxisScaleColor == 0) ? ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.scaleTextColor) : builder.yAxisScaleColor;
+        guidelineCount = (builder.guidelineCount == 0) ? ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.guidelineColor) : builder.guidelineColor;
+        axisColor = (builder.axisColor == 0) ? ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.axisColor) : builder.axisColor;
+        intervalCount = (builder.intervalCount == 0) ? 5 : builder.intervalCount;
+        guidelineCount = (builder.guidelineCount == 0) ? 5 : builder.guidelineCount;
+        noDataMsg = (builder.noDataMsg == null) ? "NO DATA" : builder.noDataMsg;
         builder.ctxWeakRef.clear();
     }
 
-    public static class Builder implements IMaxValue {
+    public static class Builder {
         private WeakReference<Context> ctxWeakRef;
 
         @ColorInt
         int axisColor = 0;
-
-        @ColorInt
-        int strokeColor = 0;
-
-        @ColorInt
-        int backgroundColor = 0;
-
-        @ColorInt
-        int gradientStartColor = 0, gradientEndColor = 0;
 
         @ColorInt
         int xAxisScaleColor = 0;
@@ -98,22 +65,19 @@ public class CurveGraphConfig {
 
         String noDataMsg = null;
 
-        private Builder() {}
+        private Builder() {
+        }
 
         public Builder(Context context) {
             ctxWeakRef = new WeakReference<>(context);
         }
 
-        @Override
-        public Builder setMaxValue() {
-            return null;
-        }
         public Builder setNoDataMsg(String message) {
             this.noDataMsg = message;
             return this;
         }
 
-        public Builder getGuidelineCount(int count) {
+        public Builder setGuidelineCount(int count) {
             this.guidelineCount = count;
             return this;
         }
@@ -123,13 +87,7 @@ public class CurveGraphConfig {
             return this;
         }
 
-        public Builder setGradientColor(int start, int end) {
-            this.gradientEndColor = ContextCompat.getColor(ctxWeakRef.get(), end);
-            this.gradientStartColor = ContextCompat.getColor(ctxWeakRef.get(), start);
-            return this;
-        }
-
-        public Builder setxAxisScaleColor(int colorRes) {
+        public Builder setxAxisScaleTextColor(int colorRes) {
             this.xAxisScaleColor = ContextCompat.getColor(ctxWeakRef.get(), colorRes);
             return this;
         }
@@ -139,12 +97,7 @@ public class CurveGraphConfig {
             return this;
         }
 
-        public Builder setBackgroundColor(int colorRes) {
-            backgroundColor = ContextCompat.getColor(ctxWeakRef.get(), colorRes);
-            return this;
-        }
-
-        public Builder setyAxisScaleColor(int colorRes) {
+        public Builder setyAxisScaleTextColor(int colorRes) {
             yAxisScaleColor = ContextCompat.getColor(ctxWeakRef.get(), colorRes);
             return this;
         }
@@ -154,17 +107,8 @@ public class CurveGraphConfig {
             return this;
         }
 
-        public Builder setStrokeColor(int colorRes) {
-            strokeColor = ContextCompat.getColor(ctxWeakRef.get(), colorRes);
-            return this;
-        }
-
         public CurveGraphConfig build() {
             return new CurveGraphConfig(this);
         }
-    }
-
-    public interface IMaxValue {
-        Builder setMaxValue();
     }
 }

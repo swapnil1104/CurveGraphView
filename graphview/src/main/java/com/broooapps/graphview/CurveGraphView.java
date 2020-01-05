@@ -19,9 +19,12 @@ import com.broooapps.graphview.models.GraphPoint;
 import com.broooapps.graphview.models.PointMap;
 
 import java.lang.ref.WeakReference;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class CurveGraphView extends View {
+
+    DecimalFormat df = new DecimalFormat("#######.##");
 
     // Builder fields
     private int guidelineCount;
@@ -52,6 +55,7 @@ public class CurveGraphView extends View {
     private AttributeSet attributeSet;
     int xSpan = 0;
     private float maxVal;
+    private String noDataMsg;
 
     public CurveGraphView(Context context) {
         this(context, null);
@@ -87,6 +91,8 @@ public class CurveGraphView extends View {
         xAxis = new RectF(0, 0, 0, 0);
         yAxis = new RectF(0, 0, 0, 0);
 
+        this.noDataMsg = builder.noDataMsg;
+
         this.guidelineCount = builder.guidelineCount;
         this.intervalCount = builder.intervalCount;
 
@@ -102,7 +108,6 @@ public class CurveGraphView extends View {
 
         graphPointPaint.setAntiAlias(true);
         graphPointPaint.setStyle(Paint.Style.FILL);
-        graphPointPaint.setColor(builder.strokeColor);
 
         axisLinePaint.setAntiAlias(true);
         axisLinePaint.setColor(builder.axisColor);
@@ -135,10 +140,6 @@ public class CurveGraphView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        graphHeight = getHeight() - graphPadding;
-        graphWidth = getWidth() - graphPadding;
-        viewWidth = getWidth();
-        viewHeight = getHeight();
         super.onDraw(canvas);
 
         drawGuideline(canvas);
@@ -155,9 +156,8 @@ public class CurveGraphView extends View {
 
     private void drawInterval(Canvas canvas) {
         for (int i = 1; i <= intervalCount; i++) {
-            String msg = " " + (i);
-
-            int xPos = ((viewWidth) * i / (intervalCount + 1));
+            String msg = String.valueOf(df.format(i * ((float) xSpan / intervalCount)));
+            int xPos = (i * (graphWidth - (graphPadding) * 2)) / (intervalCount + 1);
             int yPos = (int) (viewHeight - xAxisScalePaint.getTextSize());
 
             canvas.drawText(msg, xPos, yPos, xAxisScalePaint);
@@ -168,7 +168,7 @@ public class CurveGraphView extends View {
         for (int i = 1; i <= guidelineCount; i++) {
             path.reset();
 
-            int xPos = i * viewWidth / (guidelineCount + 1);
+            int xPos = (i * (graphWidth - (graphPadding) * 2)) / (guidelineCount + 1);
             path.moveTo(xPos, graphPadding);
             path.lineTo(xPos, yAxis.top);
 
@@ -218,7 +218,7 @@ public class CurveGraphView extends View {
 
                 prevDataPoint = graphPoint;
                 if (graphPoint.getY() != morphedGraphHeight) {
-                    canvas.drawCircle(graphPoint.getX(), graphPoint.getY(), 4, graphPointPaint);
+                    canvas.drawCircle(graphPoint.getX(), graphPoint.getY(), 6, graphPointPaint);
                 }
 
             }
@@ -257,7 +257,7 @@ public class CurveGraphView extends View {
                 canvas.drawText(String.valueOf((int) value), graphWidth - graphPadding + 8, y, yAxisScalePaint);
             }
         } else {
-            canvas.drawText("No data", (graphWidth - graphPadding * 2) / 2, (graphHeight + graphPadding * 2) / 2, yAxisScalePaint);
+            canvas.drawText(this.noDataMsg, (graphWidth - graphPadding * 2) / 2, (graphHeight + graphPadding * 2) / 2, yAxisScalePaint);
         }
     }
 
@@ -273,8 +273,15 @@ public class CurveGraphView extends View {
 
         setMeasuredDimension(viewWidth, viewHeight);
 
-        xAxis = new RectF(graphPadding - 4, graphPadding - 4, graphPadding, graphHeight);
-        yAxis = new RectF(graphPadding, graphHeight - yAxisScalePaint.getTextSize(), graphWidth - graphPadding, graphHeight - yAxisScalePaint.getTextSize() + 4);
+        xAxis.left = graphPadding - 4;
+        xAxis.top = graphPadding - 4;
+        xAxis.right = graphPadding;
+        xAxis.bottom = graphHeight;
+
+        yAxis.left = graphPadding;
+        yAxis.top = graphHeight - yAxisScalePaint.getTextSize();
+        yAxis.right = graphWidth - graphPadding;
+        yAxis.bottom = graphHeight - yAxisScalePaint.getTextSize() + 4;
 
         invalidate();
     }

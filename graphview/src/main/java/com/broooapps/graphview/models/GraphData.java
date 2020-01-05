@@ -73,18 +73,18 @@ public class GraphData {
         }
 
         @Override
-        public IGraphStroke setData(PointMap graphPoints) {
+        public IGraphStroke setPointMap(PointMap graphPoints) {
             this.graphDataPoints = graphPoints;
             return this;
         }
 
         @Override
-        public Builder setStroke(int colorRes) {
+        public Builder setGraphStroke(int colorRes) {
             this.strokeColor = ContextCompat.getColor(ctxWeakRef.get(), colorRes);
             return this;
         }
 
-        public Builder setGradientColor(int start, int end) {
+        public Builder setGraphGradient(int start, int end) {
             this.gradientEndColor = ContextCompat.getColor(ctxWeakRef.get(), end);
             this.gradientStartColor = ContextCompat.getColor(ctxWeakRef.get(), start);
             return this;
@@ -96,11 +96,11 @@ public class GraphData {
     }
 
     public interface IGraphData {
-        IGraphStroke setData(PointMap graphPoints);
+        IGraphStroke setPointMap(PointMap graphPoints);
     }
 
     public interface IGraphStroke {
-        Builder setStroke(int colorRes);
+        Builder setGraphStroke(int colorRes);
     }
 }
 
