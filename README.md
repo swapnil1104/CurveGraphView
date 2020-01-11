@@ -82,9 +82,12 @@ A GraphData object expects a **PointMap**, **strokeColor** of the graph, and an 
 Create a GraphData object as shown below.
 ```
 GraphData gd = GraphData.builder(this)
-       .setPointMap(pointMap)
-       .setGraphStroke(R.color.Black)
-       .setGraphGradient(R.color.BlueViolet, R.color.RoyalBlue)
+       .setPointMap(pointMap)                                                   // PointMap datqa
+       .setGraphStroke(R.color.Black)                                           // Graph line stroke color
+       .setGraphGradient(R.color.BlueViolet, R.color.RoyalBlue)                 // Graph fill gradient color
+       .setStraightLine(true)                                                   // true for straight line; false for curved line graph
+       .setPointRadius(10)                                                      // set point radius
+       .setPointColor(R.color.Red)                                              // set point color
        .build();
 ```
 

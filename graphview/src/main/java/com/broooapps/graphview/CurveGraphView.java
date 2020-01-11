@@ -209,16 +209,20 @@ public class CurveGraphView extends View {
                 } else {
                     graphPoint.setY(morphedGraphHeight);
                 }
-                if (spanIndex > 0) {
-                    f1 = (prevDataPoint.getX() + graphPoint.getX()) / 2;
-                    f2 = prevDataPoint.getY();
-                    f4 = graphPoint.getY();
-                    path.cubicTo(f1, f2, f1, f4, graphPoint.getX(), graphPoint.getY());
+                if (graphData.isStraightLine()) {
+                    path.lineTo(graphPoint.getX(), graphPoint.getY());
+                } else {
+                    if (spanIndex > 0) {
+                        f1 = (prevDataPoint.getX() + graphPoint.getX()) / 2;
+                        f2 = prevDataPoint.getY();
+                        f4 = graphPoint.getY();
+                        path.cubicTo(f1, f2, f1, f4, graphPoint.getX(), graphPoint.getY());
+                    }
                 }
 
                 prevDataPoint = graphPoint;
                 if (graphPoint.getY() != morphedGraphHeight) {
-                    canvas.drawCircle(graphPoint.getX(), graphPoint.getY(), 6, graphPointPaint);
+                    canvas.drawCircle(graphPoint.getX(), graphPoint.getY(), graphData.getPointRadius(), graphPointPaint);
                 }
 
             }
@@ -236,14 +240,13 @@ public class CurveGraphView extends View {
     }
 
     private void updateStyleForGraphData(GraphData graphData) {
-        graphPointPaint.setColor(graphData.getStrokeColor());
         graphStrokePaint.setColor(graphData.getStrokeColor());
+        graphPointPaint.setColor(graphData.getPointColor());
 
         if (graphData.getGradientStartColor() != 0) {
             graphGradientPaint.setShader(new LinearGradient(0, 0, 0, graphHeight,
                     graphData.getGradientStartColor(),
                     graphData.getGradientEndColor(), Shader.TileMode.MIRROR));
-
         }
 
     }

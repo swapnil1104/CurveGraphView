@@ -8,7 +8,7 @@
 
     <color name="gradientStartColor">#B59C27B0</color>
     <color name="gradientEndColor">#C6311B92</color>
-    <color name="guidelineColor">@color/Maroon</color>
+    <color name="guidelineColor">@color/Red</color>
     <color name="scaleTextColor">@color/Black</color>
     <color name="axisColor">@color/Black</color>
 

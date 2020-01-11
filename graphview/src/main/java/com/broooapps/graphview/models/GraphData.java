@@ -11,8 +11,12 @@ import java.util.ArrayList;
 public class GraphData {
     private WeakReference<Context> ctxWeakRef;
     private PointMap graphDataPoints;
+
+    private boolean isStraightLine = false;
+    private int pointRadius;
+
     @ColorInt
-    int strokeColor = 0;
+    int strokeColor = 0, pointColor = 0;
 
     @ColorInt
     int gradientStartColor = 0, gradientEndColor = 0;
@@ -31,6 +35,14 @@ public class GraphData {
         this.strokeColor = builder.strokeColor;
         this.gradientEndColor = builder.gradientEndColor;
         this.gradientStartColor = builder.gradientStartColor;
+
+        this.isStraightLine = builder.isStraightLine;
+        this.pointRadius = builder.pointRadius;
+        if (builder.pointColor == 0) {
+            this.pointColor = this.strokeColor;
+        } else {
+            this.pointColor = builder.pointColor;
+        }
     }
 
     public WeakReference<Context> getCtxWeakRef() {
@@ -53,6 +65,18 @@ public class GraphData {
         return gradientEndColor;
     }
 
+    public int getPointColor() {
+        return pointColor;
+    }
+
+    public int getPointRadius() {
+        return pointRadius;
+    }
+
+    public boolean isStraightLine() {
+        return isStraightLine;
+    }
+
     public static IGraphData builder(Context context) {
         return new Builder(context);
     }
@@ -60,10 +84,14 @@ public class GraphData {
     public static class Builder implements IGraphData, IGraphStroke {
         private WeakReference<Context> ctxWeakRef;
         private PointMap graphDataPoints;
+
+        private boolean isStraightLine = false;
+        private int pointRadius = 4;
+
         @ColorInt
-        int strokeColor = 0;
+        private int strokeColor = 0, pointColor = 0;
         @ColorInt
-        int gradientStartColor = 0, gradientEndColor = 0;
+        private int gradientStartColor = 0, gradientEndColor = 0;
 
         private Builder() {
         }
@@ -87,6 +115,21 @@ public class GraphData {
         public Builder setGraphGradient(int start, int end) {
             this.gradientEndColor = ContextCompat.getColor(ctxWeakRef.get(), end);
             this.gradientStartColor = ContextCompat.getColor(ctxWeakRef.get(), start);
+            return this;
+        }
+
+        public Builder setPointColor(int color) {
+            this.pointColor = ContextCompat.getColor(ctxWeakRef.get(), color);
+            return this;
+        }
+
+        public Builder setStraightLine(boolean isStraightLine) {
+            this.isStraightLine = isStraightLine;
+            return this;
+        }
+
+        public Builder setPointRadius(int radius) {
+            this.pointRadius = radius;
             return this;
         }
 

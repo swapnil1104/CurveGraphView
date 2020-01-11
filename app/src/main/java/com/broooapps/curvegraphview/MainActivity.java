@@ -21,10 +21,10 @@ public class MainActivity extends AppCompatActivity {
 
         curveGraphView.configure(
                 new CurveGraphConfig.Builder(this)
-                        .setAxisColor(R.color.Blue)                                             // Set X and Y axis line color stroke.
-                        .setIntervalDisplayCount(7)                                             // Set number of values to be displayed in X ax
-                        .setGuidelineCount(2)                                                   // Set number of background guidelines to be shown.
-                        .setGuidelineColor(R.color.GreenYellow)                                 // Set color of the visible guidelines.
+                        .setAxisColor(R.color.Blue)                                           // Set X and Y axis line color stroke.
+                        .setIntervalDisplayCount(7)                                           // Set number of values to be displayed in X ax
+                        .setGuidelineCount(4)                                                   // Set number of background guidelines to be shown.
+                        .setGuidelineColor(R.color.Red)                                         // Set color of the visible guidelines.
                         .setNoDataMsg(" No Data ")                                              // Message when no data is provided to the view.
                         .setxAxisScaleTextColor(R.color.Black)                                  // Set X axis scale text color.
                         .setyAxisScaleTextColor(R.color.Black)                                  // Set Y axis scale text color
@@ -34,14 +34,19 @@ public class MainActivity extends AppCompatActivity {
 
         PointMap pointMap = new PointMap();
         pointMap.addPoint(0, 100);
-        pointMap.addPoint(1, 500);
-        pointMap.addPoint(4, 600);
-        pointMap.addPoint(5, 800);
+        pointMap.addPoint(1, 200);
+        pointMap.addPoint(2, 500);
+        pointMap.addPoint(3, 400);
+        pointMap.addPoint(4, 100);
+        pointMap.addPoint(5, 600);
 
         GraphData gd = GraphData.builder(this)
                 .setPointMap(pointMap)
                 .setGraphStroke(R.color.Black)
-                .setGraphGradient(R.color.BlueViolet, R.color.RoyalBlue)
+                .setGraphGradient(R.color.gradientStartColor, R.color.gradientEndColor)
+                .setPointColor(R.color.Red)
+                .setPointRadius(5)
+                .setStraightLine(true)
                 .build();
 
         PointMap p2 = new PointMap();
@@ -58,6 +63,6 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
 
-        curveGraphView.setData(5, 1000, gd, gd2);
+        curveGraphView.setData(5, 1000, gd);
     }
 }
