@@ -1,14 +1,11 @@
 # CurveGraphView
 
 [![](https://jitpack.io/v/swapnil1104/CurveGraphView.svg)](https://jitpack.io/#swapnil1104/CurveGraphView)
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-CurveGraphView-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7666)
 
 A highly customizable and performant custom view to render curved line graph.
 
 ![screenshot 1](documentation/images/1.png)
 ![screenshot 2](documentation/images/2.png)
-![screenshot 3](documentation/images/3.png)
-
 ## Packed with features
 - Add multiple line graphs within one graph plane.
 - Extensible styling options.
