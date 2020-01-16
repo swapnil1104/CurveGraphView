@@ -20,7 +20,6 @@ import com.broooapps.graphview.models.PointMap;
 
 import java.lang.ref.WeakReference;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 public class CurveGraphView extends View {
 
@@ -155,8 +154,9 @@ public class CurveGraphView extends View {
     }
 
     private void drawInterval(Canvas canvas) {
+        if (intervalCount == 0) return;
         for (int i = 1; i <= intervalCount; i++) {
-            String msg = String.valueOf(df.format(i * ((float) xSpan / intervalCount)));
+            String msg = df.format(i * ((float) xSpan / intervalCount));
             int xPos = (i * (graphWidth - (graphPadding) * 2)) / (intervalCount + 1);
             int yPos = (int) (viewHeight - xAxisScalePaint.getTextSize());
 
@@ -165,6 +165,7 @@ public class CurveGraphView extends View {
     }
 
     private void drawGuideline(Canvas canvas) {
+        if (guidelineCount == 0) return;
         for (int i = 1; i <= guidelineCount; i++) {
             path.reset();
 
@@ -181,9 +182,7 @@ public class CurveGraphView extends View {
         float f1, f2, f4;
         float scaleFactor = maxVal / (morphedGraphHeight - graphPadding);
 
-        for (int graphDataIndex = 0; graphDataIndex < graphDataArray.length; graphDataIndex++) {
-            GraphData graphData = graphDataArray[graphDataIndex];
-
+        for (GraphData graphData : graphDataArray) {
             updateStyleForGraphData(graphData);
             PointMap pointMap = graphData.getGraphDataPoints();
 
