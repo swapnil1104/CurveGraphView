@@ -13,30 +13,27 @@ public class CurveGraphConfig {
     private WeakReference<Context> ctxWeakRef;
 
     @ColorInt
-    int axisColor = 0;
+    int axisColor;
 
     @ColorInt
-    int backgroundColor = 0;
+    int xAxisScaleColor;
 
     @ColorInt
-    int xAxisScaleColor = 0;
+    int guidelineColor;
 
     @ColorInt
-    int guidelineColor = 0;
+    int yAxisScaleColor;
 
-    @ColorInt
-    int yAxisScaleColor = 0;
+    int guidelineCount;
 
-    int guidelineCount = 0;
+    int intervalCount;
 
-    int intervalCount = 0;
-
-    String noDataMsg = null;
+    String noDataMsg;
 
     private CurveGraphConfig(Builder builder) {
         xAxisScaleColor = (builder.xAxisScaleColor == 0) ? ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.Black) : builder.xAxisScaleColor;
         yAxisScaleColor = (builder.yAxisScaleColor == 0) ? ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.scaleTextColor) : builder.yAxisScaleColor;
-        guidelineCount = (builder.guidelineCount == 0) ? ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.guidelineColor) : builder.guidelineColor;
+        guidelineColor = (builder.guidelineColor == 0) ? ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.guidelineColor) : builder.guidelineColor;
         axisColor = (builder.axisColor == 0) ? ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.axisColor) : builder.axisColor;
         intervalCount = (builder.intervalCount == 0) ? 5 : builder.intervalCount;
         guidelineCount = (builder.guidelineCount == 0) ? 5 : builder.guidelineCount;
