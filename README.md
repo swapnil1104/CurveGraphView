@@ -1,6 +1,7 @@
 # CurveGraphView
 
 [![](https://jitpack.io/v/swapnil1104/CurveGraphView.svg)](https://jitpack.io/#swapnil1104/CurveGraphView)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-OtpEditText-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/8037)
 
 A highly customizable and performant custom view to render curved line graph.
 
