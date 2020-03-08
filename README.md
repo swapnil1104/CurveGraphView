@@ -6,6 +6,7 @@ A highly customizable and performant custom view to render curved line graph.
 
 ![screenshot 1](documentation/images/1.png)
 ![screenshot 2](documentation/images/2.png)
+![Added new animation](documentation/images/animation_demo.gif)
 ## Packed with features
 - Add multiple line graphs within one graph plane.
 - Extensible styling options.
@@ -85,6 +86,7 @@ GraphData gd = GraphData.builder(this)
        .setStraightLine(true)                                                   // true for straight line; false for curved line graph
        .setPointRadius(10)                                                      // set point radius
        .setPointColor(R.color.Red)                                              // set point color
+       .animateLine(true)                                                       // Trigger animation for the particular graph line!
        .build();
 ```
 
@@ -94,7 +96,6 @@ dscription of the params:
 - span: is the range from 0...<span_value> i.e. this is the range of x-axis.
 - maxVal: is the maximum plottable value for Y axis.
 - gds... : is the array of GraphData objects.
-
 
 
 ## Sample Code
@@ -110,6 +111,7 @@ curveGraphView.configure(
                 .setNoDataMsg(" No Data ")                                              // Message when no data is provided to the view.
                 .setxAxisScaleTextColor(R.color.Black)                                  // Set X axis scale text color.
                 .setyAxisScaleTextColor(R.color.Black)                                  // Set Y axis scale text color
+                .setAnimationDuration(2000)                                             // Set animation duration to be used after set data.
                 .build()
 );
 
@@ -140,5 +142,14 @@ GraphData gd2 = GraphData.builder(this)
         .build();
 
 
-curveGraphView.setData(5, 1000, gd, gd2);
+//TODO(Swapnil) Optimize the setting logic code.
+/** This needs to be done, onMeasure of Layout isn't called if setData is called in onCreate 
+  * If anyone can take this up as their first issue, it'd be great!
+  */
+new Handler().postDelayed(new Runnable() {
+    @Override
+    public void run() {
+        curveGraphView.setData(5, 1000, gd, gd2);
+    }
+}, 250);
 ```

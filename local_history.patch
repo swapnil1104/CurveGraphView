@@ -1,0 +1,41 @@
+Index: graphview/src/main/java/com/broooapps/graphview/AnimView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- graphview/src/main/java/com/broooapps/graphview/AnimView.java	(date 1581442461683)
++++ graphview/src/main/java/com/broooapps/graphview/AnimView.java	(date 1581442461683)
+@@ -1,5 +1,7 @@
+ package com.broooapps.graphview;
+ 
++import android.animation.Animator;
++import android.animation.AnimatorListenerAdapter;
+ import android.animation.ObjectAnimator;
+ import android.content.Context;
+ import android.graphics.Canvas;
+@@ -28,10 +30,21 @@
+         path = new Path();
+ 
+         Object target;
+-        ObjectAnimator obj = ObjectAnimator.ofFloat(this, "phase", 1f, 0f);
+-        obj.setDuration(10000);
+-        obj.setInterpolator(new AccelerateInterpolator());
+-        obj.start();
++        ObjectAnimator animator = ObjectAnimator.ofFloat(this, "phase", 1.0f, 0.0f);
++        animator.setDuration(900);
++        animator.start();
++        animator.addListener(new AnimatorListenerAdapter() {
++            @Override
++            public void onAnimationEnd(Animator animation) {
++                super.onAnimationEnd(animation);
++
++            }
++
++            @Override
++            public void onAnimationStart(Animator animation) {
++                super.onAnimationStart(animation);
++            }
++        });
+     }
+ 
+     @Override

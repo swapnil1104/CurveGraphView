@@ -1,5 +1,6 @@
 package com.broooapps.graphview;
 
+import android.app.AlertDialog.Builder;
 import android.content.Context;
 
 import androidx.annotation.ColorInt;
@@ -28,6 +29,8 @@ public class CurveGraphConfig {
 
     int intervalCount;
 
+    long animationDuration;
+
     String noDataMsg;
 
     private CurveGraphConfig(Builder builder) {
@@ -38,6 +41,7 @@ public class CurveGraphConfig {
         intervalCount = (builder.intervalCount == 0) ? 5 : builder.intervalCount;
         guidelineCount = (builder.guidelineCount == 0) ? 5 : builder.guidelineCount;
         noDataMsg = (builder.noDataMsg == null) ? "NO DATA" : builder.noDataMsg;
+        animationDuration = builder.animationDuration;
         builder.ctxWeakRef.clear();
     }
 
@@ -59,6 +63,8 @@ public class CurveGraphConfig {
         int guidelineCount = 0;
 
         int intervalCount = 0;
+
+        long animationDuration = 2000;
 
         String noDataMsg = null;
 
@@ -101,6 +107,11 @@ public class CurveGraphConfig {
 
         public Builder setIntervalDisplayCount(int intervalCount) {
             this.intervalCount = intervalCount;
+            return this;
+        }
+
+        public Builder setAnimationDuration(long duration) {
+            this.animationDuration = duration;
             return this;
         }
 

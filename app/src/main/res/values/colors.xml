@@ -5,7 +5,9 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="gradientStartColor">#B59C27B0</color>
+    <color name="gradientStartColor2">#B59aa7B0</color>
     <color name="gradientEndColor">#C6311B92</color>
+    <color name="gradientEndColor2">#C6311ee2</color>
 
 
 </resources>
