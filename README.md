@@ -4,9 +4,12 @@
 
 A highly customizable and performant custom view to render curved line graph.
 
+![Animation demo](documentation/images/animation_demo.gif)
+![Animation with straight & curved](documentation/images/straight_curved_demo.gif)
+![Animation with opaque color](documentation/images/animation_demo2.gif)
+![Animated and non animated graph](documentation/images/static_dynamic_graph_demo.gif)
 ![screenshot 1](documentation/images/1.png)
 ![screenshot 2](documentation/images/2.png)
-![Added new animation](documentation/images/animation_demo.gif)
 ## Packed with features
 - Add multiple line graphs within one graph plane.
 - Extensible styling options.
