@@ -15,6 +15,8 @@ public class GraphData {
     private boolean isStraightLine = false;
     private int pointRadius;
 
+    private boolean animateLine = false;
+
     @ColorInt
     int strokeColor = 0, pointColor = 0;
 
@@ -43,6 +45,7 @@ public class GraphData {
         } else {
             this.pointColor = builder.pointColor;
         }
+        this.animateLine = builder.animateLine;
     }
 
     public WeakReference<Context> getCtxWeakRef() {
@@ -77,6 +80,10 @@ public class GraphData {
         return isStraightLine;
     }
 
+    public boolean isAnimateLine() {
+        return animateLine;
+    }
+
     public static IGraphData builder(Context context) {
         return new Builder(context);
     }
@@ -86,6 +93,7 @@ public class GraphData {
         private PointMap graphDataPoints;
 
         private boolean isStraightLine = false;
+        private boolean animateLine = false;
         private int pointRadius = 4;
 
         @ColorInt
@@ -120,6 +128,11 @@ public class GraphData {
 
         public Builder setPointColor(int color) {
             this.pointColor = ContextCompat.getColor(ctxWeakRef.get(), color);
+            return this;
+        }
+
+        public Builder animateLine(boolean animate) {
+            this.animateLine = animate;
             return this;
         }
 
