@@ -1,25 +1,30 @@
 package com.broooapps.graphview;
 
-import android.animation.*;
-import android.app.Activity;
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.*;
-import android.os.Handler;
+import android.graphics.Canvas;
+import android.graphics.DashPathEffect;
+import android.graphics.LinearGradient;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PathEffect;
+import android.graphics.PathMeasure;
+import android.graphics.RectF;
+import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
 import com.broooapps.graphview.models.GraphData;
 import com.broooapps.graphview.models.GraphPoint;
 import com.broooapps.graphview.models.PointMap;
 
-import java.lang.ref.WeakReference;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -163,6 +168,8 @@ public class CurveGraphView extends View {
         this.maxVal = maxVal;
         this.xSpan = span;
         this.graphDataArray = graphDataArray;
+        graphGradientPaintsList.clear();
+        graphStrokePaintsList.clear();
 
         pathArrayList = constructPaths();
         length = getLengths();
@@ -251,7 +258,8 @@ public class CurveGraphView extends View {
                 for (int i = 0; i < graphGradientPaintsList.size(); i++) {
 
                     if (graphDataArray[i].isAnimateLine()) {
-                        graphGradientPaintsList.get(i).setAlpha((Integer) animation.getAnimatedValue("PROPERTY_ALPHA"));
+                        if (graphGradientPaintsList.get(i) != null)
+                            graphGradientPaintsList.get(i).setAlpha((Integer) animation.getAnimatedValue("PROPERTY_ALPHA"));
                         graphPointPaintsList.get(i).setAlpha((Integer) animation.getAnimatedValue("PROPERTY_ALPHA"));
                     }
                 }
