@@ -72,6 +72,8 @@ public class CurveGraphView extends View {
     ArrayList<ArrayList<GraphPoint>> graphPointsList;
     ArrayList<Paint> graphPointPaintsList;
 
+    ValueAnimator valueAnimator;
+
     private CurveGraphConfig.Builder builder;
     private boolean isConfigured;
 
@@ -173,6 +175,9 @@ public class CurveGraphView extends View {
         graphPointPaintsList.clear();
         graphPointsList.clear();
         pathArrayList = constructPaths();
+        if (valueAnimator != null) {
+            valueAnimator.cancel();
+        }
         length = getLengths();
         ObjectAnimator ob = ObjectAnimator.ofFloat(this, "phase", 1f, 0f);
         ob.setDuration(animationDuration);
@@ -246,7 +251,7 @@ public class CurveGraphView extends View {
     }
 
     private void startGradientAnimation() {
-        ValueAnimator valueAnimator = new ValueAnimator();
+        valueAnimator = new ValueAnimator();
         PropertyValuesHolder alphaFactor = PropertyValuesHolder.ofInt("PROPERTY_ALPHA", 0, 255);
 
         valueAnimator.setValues(alphaFactor);

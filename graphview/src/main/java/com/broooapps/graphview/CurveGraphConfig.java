@@ -1,6 +1,5 @@
 package com.broooapps.graphview;
 
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 
 import androidx.annotation.ColorInt;
@@ -10,8 +9,6 @@ import java.lang.ref.WeakReference;
 
 
 public class CurveGraphConfig {
-
-    private WeakReference<Context> ctxWeakRef;
 
     @ColorInt
     int axisColor;
@@ -38,8 +35,8 @@ public class CurveGraphConfig {
         yAxisScaleColor = (builder.yAxisScaleColor == 0) ? ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.scaleTextColor) : builder.yAxisScaleColor;
         guidelineColor = (builder.guidelineColor == 0) ? ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.guidelineColor) : builder.guidelineColor;
         axisColor = (builder.axisColor == 0) ? ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.axisColor) : builder.axisColor;
-        intervalCount = (builder.intervalCount == 0) ? 5 : builder.intervalCount;
-        guidelineCount = (builder.guidelineCount == 0) ? 5 : builder.guidelineCount;
+        intervalCount = builder.intervalCount;
+        guidelineCount = builder.guidelineCount;
         noDataMsg = (builder.noDataMsg == null) ? "NO DATA" : builder.noDataMsg;
         animationDuration = builder.animationDuration;
         builder.ctxWeakRef.clear();
