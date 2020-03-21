@@ -170,7 +170,8 @@ public class CurveGraphView extends View {
         this.graphDataArray = graphDataArray;
         graphGradientPaintsList.clear();
         graphStrokePaintsList.clear();
-
+        graphPointPaintsList.clear();
+        graphPointsList.clear();
         pathArrayList = constructPaths();
         length = getLengths();
         ObjectAnimator ob = ObjectAnimator.ofFloat(this, "phase", 1f, 0f);
