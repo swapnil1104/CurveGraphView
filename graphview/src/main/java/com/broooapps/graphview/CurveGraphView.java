@@ -168,6 +168,8 @@ public class CurveGraphView extends View {
         this.maxVal = maxVal;
         this.xSpan = span;
         this.graphDataArray = graphDataArray;
+        graphGradientPaintsList.clear();
+        graphStrokePaintsList.clear();
 
         pathArrayList = constructPaths();
         length = getLengths();
