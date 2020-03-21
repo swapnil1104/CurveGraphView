@@ -73,6 +73,8 @@ public class CurveGraphView extends View {
     ArrayList<Paint> graphPointPaintsList;
 
     ValueAnimator valueAnimator;
+    ObjectAnimator ob;
+
 
     private CurveGraphConfig.Builder builder;
     private boolean isConfigured;
@@ -166,7 +168,7 @@ public class CurveGraphView extends View {
         animationDuration = builder.animationDuration;
     }
 
-    public void setData(int span, int maxVal, GraphData... graphDataArray) {
+    public void setData(int span, int maxVal, final GraphData... graphDataArray) {
         this.maxVal = maxVal;
         this.xSpan = span;
         this.graphDataArray = graphDataArray;
@@ -178,8 +180,11 @@ public class CurveGraphView extends View {
         if (valueAnimator != null) {
             valueAnimator.cancel();
         }
+        if (ob != null) {
+            ob.cancel();
+        }
         length = getLengths();
-        ObjectAnimator ob = ObjectAnimator.ofFloat(this, "phase", 1f, 0f);
+        ob = ObjectAnimator.ofFloat(this, "phase", 1f, 0f);
         ob.setDuration(animationDuration);
         ob.setInterpolator(new AccelerateInterpolator());
         ob.start();
@@ -197,6 +202,14 @@ public class CurveGraphView extends View {
 
             @Override
             public void onAnimationCancel(Animator animation) {
+                for (int i = 0; i < graphGradientPaintsList.size(); i++) {
+                    if (graphDataArray[i].isAnimateLine()) {
+                        if (graphGradientPaintsList.get(i) != null)
+                            graphGradientPaintsList.get(i).setAlpha(0);
+                        graphPointPaintsList.get(i).setAlpha(0);
+                    }
+                }
+                invalidate();
 
             }
 
