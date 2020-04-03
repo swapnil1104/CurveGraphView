@@ -251,7 +251,7 @@ public class CurveGraphView extends View {
     }
 
     private void drawGuideline(Canvas canvas) {
-        if (guidelineCount == 0 || graphDataArray.length == 0) return;
+        if (drawGuideline()) return;
         for (int i = 1; i <= guidelineCount; i++) {
             path.reset();
 
@@ -261,6 +261,19 @@ public class CurveGraphView extends View {
 
             canvas.drawPath(path, guidelinePaint);
         }
+    }
+
+    private boolean drawGuideline() {
+        return guidelineCount == 0 || graphDataArray.length == 0 || noDataInGraph();
+    }
+
+    private boolean noDataInGraph() {
+        for (int i = 0; i < graphDataArray.length; i++) {
+            GraphData gd = graphDataArray[i];
+            if (gd.getGraphDataPoints().getPointMap().isEmpty()) continue;
+            return false;
+        }
+        return true;
     }
 
     private void startGradientAnimation() {
