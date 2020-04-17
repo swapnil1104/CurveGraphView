@@ -14,6 +14,7 @@ import android.graphics.PathEffect;
 import android.graphics.PathMeasure;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -188,7 +189,9 @@ public class CurveGraphView extends View {
         ob.setDuration(animationDuration);
         ob.setInterpolator(new AccelerateInterpolator());
         ob.start();
-        ob.setAutoCancel(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            ob.setAutoCancel(true);
+        }
         ob.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
