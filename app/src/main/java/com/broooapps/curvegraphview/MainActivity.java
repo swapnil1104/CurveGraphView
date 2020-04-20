@@ -25,8 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
         curveGraphView.configure(
                 new CurveGraphConfig.Builder(this)
-                        .setAxisColor(R.color.Blue)                                            // Set number of values to be displayed in X ax
-                        .setGuidelineCount(4)                                                   // Set number of background guidelines to be shown.
+                        .setAxisColor(R.color.Blue)                                             // Set number of values to be displayed in X ax
+                        .setVerticalGuideline(4)                                                // Set number of background guidelines to be shown.
+                        .setHorizontalGuideline(2)
                         .setGuidelineColor(R.color.Red)                                         // Set color of the visible guidelines.
                         .setNoDataMsg(" No Data ")                                              // Message when no data is provided to the view.
                         .setxAxisScaleTextColor(R.color.Black)                                  // Set X axis scale text color.
@@ -49,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 .animateLine(true)
                 .setPointColor(R.color.Red)
                 .setPointRadius(5)
-                .setStraightLine(true)
                 .build();
 
         PointMap p2 = new PointMap();

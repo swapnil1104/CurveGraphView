@@ -38,15 +38,17 @@ public class CurveGraphView extends View {
     DecimalFormat df = new DecimalFormat("#######.##");
 
     // Builder fields
-    private int guidelineCount;
+    private int verticalGuidelineCount;
     private int intervalCount;
+    private int horizontalGuidelineCount;
 
     private GraphData[] graphDataArray = {};
 
     int viewHeight, viewWidth;
     int graphHeight, graphWidth, graphPadding = 32;
 
-    private Path path = new Path();
+    private Path vPath = new Path();
+    private Path hPath = new Path();
 
     private Paint xAxisScalePaint;
     private Paint yAxisScalePaint;
@@ -132,7 +134,8 @@ public class CurveGraphView extends View {
             yAxis = new RectF(0, 0, 0, 0);
         }
         this.noDataMsg = builder.noDataMsg;
-        this.guidelineCount = builder.guidelineCount;
+        this.verticalGuidelineCount = builder.guidelineCount;
+        this.horizontalGuidelineCount = builder.horizontalGuidelineCount;
         this.intervalCount = builder.intervalCount;
 
         xAxisScalePaint.setTextSize(28f);
@@ -228,7 +231,10 @@ public class CurveGraphView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawAxis(canvas);
-        drawGuideline(canvas);
+        if (!(graphDataArray.length == 0 || noDataInGraph())) {
+            drawVertGuideline(canvas);
+            drawHorizontalGuidelines(canvas);
+        }
         drawScaleText(canvas);
         drawInterval(canvas);
 
@@ -253,21 +259,31 @@ public class CurveGraphView extends View {
         }
     }
 
-    private void drawGuideline(Canvas canvas) {
-        if (drawGuideline()) return;
-        for (int i = 1; i <= guidelineCount; i++) {
-            path.reset();
+    private void drawVertGuideline(Canvas canvas) {
+        if (verticalGuidelineCount == 0) return;
+        for (int i = 1; i <= verticalGuidelineCount; i++) {
+            vPath.reset();
 
-            int xPos = (i * (graphWidth - (graphPadding) * 2)) / (guidelineCount + 1);
-            path.moveTo(xPos, graphPadding);
-            path.lineTo(xPos, yAxis.top);
+            int xPos = (i * (graphWidth - (graphPadding) * 2)) / (verticalGuidelineCount + 1);
+            vPath.moveTo(xPos, graphPadding);
+            vPath.lineTo(xPos, yAxis.top);
 
-            canvas.drawPath(path, guidelinePaint);
+            canvas.drawPath(vPath, guidelinePaint);
         }
     }
 
-    private boolean drawGuideline() {
-        return guidelineCount == 0 || graphDataArray.length == 0 || noDataInGraph();
+
+    private void drawHorizontalGuidelines(Canvas canvas) {
+        if (horizontalGuidelineCount == 0) return;
+        for (int i = 1; i <= horizontalGuidelineCount; i++) {
+            hPath.reset();
+
+            int yPos = (i * graphHeight - graphPadding) / (horizontalGuidelineCount + 1);
+            hPath.moveTo(graphPadding, yPos);
+            hPath.lineTo(graphWidth - graphPadding, yPos);
+
+            canvas.drawPath(hPath, guidelinePaint);
+        }
     }
 
     private boolean noDataInGraph() {
