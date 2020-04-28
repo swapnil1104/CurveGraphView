@@ -24,6 +24,8 @@ public class CurveGraphConfig {
 
     int guidelineCount;
 
+    int horizontalGuidelineCount;
+
     int intervalCount;
 
     long animationDuration;
@@ -37,6 +39,7 @@ public class CurveGraphConfig {
         axisColor = (builder.axisColor == 0) ? ContextCompat.getColor(builder.ctxWeakRef.get(), R.color.axisColor) : builder.axisColor;
         intervalCount = builder.intervalCount;
         guidelineCount = builder.guidelineCount;
+        horizontalGuidelineCount = builder.horizontalGuidelineCount;
         noDataMsg = (builder.noDataMsg == null) ? "NO DATA" : builder.noDataMsg;
         animationDuration = builder.animationDuration;
         builder.ctxWeakRef.clear();
@@ -61,6 +64,8 @@ public class CurveGraphConfig {
 
         int intervalCount = 0;
 
+        int horizontalGuidelineCount = 0;
+
         long animationDuration = 2000;
 
         String noDataMsg = null;
@@ -77,8 +82,13 @@ public class CurveGraphConfig {
             return this;
         }
 
-        public Builder setGuidelineCount(int count) {
+        public Builder setVerticalGuideline(int count) {
             this.guidelineCount = count;
+            return this;
+        }
+
+        public Builder setHorizontalGuideline(int count) {
+            this.horizontalGuidelineCount = count;
             return this;
         }
 

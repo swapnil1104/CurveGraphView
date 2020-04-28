@@ -10,6 +10,8 @@ A highly customizable and performant custom view to render curved line graph.
 ![Animation with straight & curved](documentation/images/straight_curved_demo.gif)
 ![Animation with opaque color](documentation/images/animation_demo2.gif)
 ![Animated and non animated graph](documentation/images/static_dynamic_graph_demo.gif)
+![Horizontal guidelines](documentation/images/horizontal_guidelines.png)
+
 ## Packed with features
 - Add multiple line graphs within one graph plane.
 - Extensible styling options.
@@ -51,16 +53,17 @@ Step 3. Add CurveGraphView to your layout file
 curveGraphView = findViewById(R.id.cgv);
 
 curveGraphView.configure(
-        new CurveGraphConfig.Builder(this)
-                .setAxisColor(R.color.Blue)                                             // Set X and Y axis line color stroke.
-                .setIntervalDisplayCount(7)                                             // Set number of values to be displayed in X ax
-                .setGuidelineCount(2)                                                   // Set number of background guidelines to be shown.
-                .setGuidelineColor(R.color.GreenYellow)                                 // Set color of the visible guidelines.
-                .setNoDataMsg(" No Data ")                                              // Message when no data is provided to the view.
-                .setxAxisScaleTextColor(R.color.Black)                                  // Set X axis scale text color.
-                .setyAxisScaleTextColor(R.color.Black)                                  // Set Y axis scale text color
-                .build()
-        ););
+    new CurveGraphConfig.Builder(this)
+            .setAxisColor(R.color.Blue)                                             // Set number of values to be displayed in X ax
+            .setVerticalGuideline(4)                                                // Set number of background guidelines to be shown.
+            .setHorizontalGuideline(2)
+            .setGuidelineColor(R.color.Red)                                         // Set color of the visible guidelines.
+            .setNoDataMsg(" No Data ")                                              // Message when no data is provided to the view.
+            .setxAxisScaleTextColor(R.color.Black)                                  // Set X axis scale text color.
+            .setyAxisScaleTextColor(R.color.Black)                                  // Set Y axis scale text color
+            .setAnimationDuration(2000)                                             // Set Animation Duration
+            .build()
+);
 ```
 ## How to provide data to the view.
 ### Create PointMap object
